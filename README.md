@@ -10,7 +10,9 @@
 <br/><br/>
 <h4>Cuentas, actualmente esta en construcción para manejar cuentas a futuro.<h4/> 
 
-  ![CuentaPokedex](https://github.com/JordyCM24/PokeApi-React-Native/assets/113217256/37897bde-6d77-4c31-8efd-e6768de79b09)
+  ![CuentaPokedex](https://github.com/JordyCM24/PokeApi-React-Native/assets/113217256/37897bde-6d77-4c31-8efd-e6768de79b09 )
+
+  <img src="https://github.com/JordyCM24/PokeApi-React-Native/assets/113217256/37897bde-6d77-4c31-8efd-e6768de79b09" alt="CuentaPokedex" height="150px" width="auto">
 
 <br/><br/>
 Pantalla de Favoritos aun no funcionando, esta en construcción, estoy tratabdo de usar un context para pasarle el pokemon que ha sido marcado
