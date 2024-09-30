@@ -42,7 +42,6 @@ export default function PokemonCard(props) {
   };
 
   const goToPokemon = () => {
-    console.log(`Vamos al pokemon: ${pokemon.name}`);
     console.log(pokemon);
     setModalVisible(true);
   };
@@ -88,8 +87,10 @@ export default function PokemonCard(props) {
           <View style={styles.modalView}>
             <Image style={styles.modalImage} source={{ uri: pokemon.image }} />
             <Text style={styles.modalTitle}>{capitalize(pokemon.name)}</Text>
-            {/* <Text style={styles.modalText}>ID: {pokemon.id}</Text> */}
             <Text style={styles.modalText}>Número #{pokemon.order}</Text>
+            <Text style={styles.modalText}>Altura: {pokemon.height}</Text>
+            <Text style={styles.modalText}>Ancho: {pokemon.weight}</Text>
+            <Text style={styles.modalText}>Habilidades: {pokemon.abilities.join(", ")}</Text>
             <Text style={styles.modalText}>Tipo: {pokemon.type}</Text>
             <TouchableOpacity
               style={styles.closeButton}

@@ -17,7 +17,7 @@ export default function Pokedex(props) {
   const filteredPokemons = pokemons.filter(pokemon => {
     return pokemon.name.includes(search) || pokemon.order.toString() === search;
   });
-  console.log('pokemonFiltrado=>', filteredPokemons);
+  //console.log('pokemonFiltrado=>', filteredPokemons);
 
   return(
      <View>
