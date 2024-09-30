@@ -8,12 +8,12 @@ export default function AccountScreen() {
       <Text style={styles.text}>Usuario:</Text>
       <View style={styles.inputContainer}>
         <Icon name="user" size={20} color="#ccc" style={styles.icon} />
-        <TextInput style={styles.input} placeholder="Usuario.." />
+        <TextInput style={styles.input} placeholder="Usuario.." placeholderTextColor="#888" />
       </View>
       <Text style={styles.text}>Contraseña:</Text>
       <View style={styles.inputContainer}>
         <Icon name="eye" size={20} color="#ccc" style={styles.icon} />
-        <TextInput style={styles.input} placeholder="Contraseña.." secureTextEntry={true} />
+        <TextInput style={styles.input} placeholder="Contraseña.." secureTextEntry={true} placeholderTextColor="#888" />
       </View>
       <View>
         <Button title="Iniciar sesión" onPress={()=> alert('Inicio de sesión en construcción ⚠')} style={styles.btn} />
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
+    borderColor: '#fff',
     borderRadius: 20,
     paddingHorizontal: 10,
     margin: 12,
@@ -62,5 +63,6 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 50,
+    color: '#fff'
   },
 })

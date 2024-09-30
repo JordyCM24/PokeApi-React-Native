@@ -10,8 +10,16 @@ const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Favorite" component={FavoriteScreen} 
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: { backgroundColor: '#000' },
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: '#888',
+        headerStyle: { backgroundColor: '#000' },
+        headerTintColor: '#fff',
+      }}
+    >
+      <Tab.Screen name="Favoritos" component={FavoriteScreen} 
         options={
           {
             tabBarLabel: 'Favoritos',
@@ -31,7 +39,7 @@ export default function Navigation() {
           }
         } 
       />
-      <Tab.Screen name="Account" component={AccountScreen} 
+      <Tab.Screen name="Cuenta" component={AccountScreen} 
         options={
           {
             tabBarLabel:"Mi cuenta",
@@ -47,6 +55,9 @@ export default function Navigation() {
 
 function renderPokeball() {
   return (
-    <Image source={require('../assets/pokeball.png')} style={{width:60, height:60, top: -18}}/>
+    <Image 
+      source={require('../assets/pokeball.png')} 
+      style={{width:60, height:60, top: -18}}
+    />
   )
 }
