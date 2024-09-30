@@ -4,6 +4,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import Navigation from './src/navigation/Navigation';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { FavoritesProvider } from './FavoritesContext';
+import Toast from 'react-native-toast-message';
 
 const darkTheme = {
   ...DarkTheme,
@@ -21,6 +22,7 @@ export default function App() {
         <NavigationContainer theme={darkTheme}>
           <Navigation />
         </NavigationContainer>
+        <Toast />
       </SafeAreaProvider>
     </FavoritesProvider>
   );

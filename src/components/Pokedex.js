@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1E1E',
     paddingHorizontal: 15,
     marginHorizontal: 10,
-    marginVertical: 10,
+    marginBottom: 6,
+    marginTop: -20,
     elevation: 2, // Sombra para Android
   },
   icon: {

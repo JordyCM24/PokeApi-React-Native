@@ -6,12 +6,14 @@ import {
   Image,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  ToastAndroid,
   Modal,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import getColorByPokemonType from "../utils/getColorByPokemonType";
 import { capitalize } from "lodash";
 import { FavoritesContext } from "../../FavoritesContext";
+import Toast from 'react-native-toast-message';
 
 export default function PokemonCard(props) {
   //object pokemon
@@ -32,8 +34,10 @@ export default function PokemonCard(props) {
   const handleFavoriteToggle = () => {
     if (isFavorite) {
       removeFavorite(pokemon.id);
+      ToastAndroid.show(`${capitalize(pokemon.name)} ha sido eliminado de tus favoritos`, ToastAndroid.BOTTOM);
     } else {
       addFavorite(pokemon);
+      ToastAndroid.show(`${capitalize(pokemon.name)} ha sido añadido a tus favoritos`, ToastAndroid.BOTTOM);
     }
   };
 
@@ -57,12 +61,13 @@ export default function PokemonCard(props) {
           </View>
           <View style={styles.containerTypes}>
             <View style={styles.containerIcons}>
-              <Icon name="eye" size={20} color={"black"} />
+              {/* <Icon name="eye" size={22} color={"black"} /> */}
               <TouchableOpacity onPress={() => handleFavoriteToggle(pokemon)}>
                 <Icon
                   name="heart"
-                  size={20}
+                  size={22}
                   color={isFavorite ? "red" : "black"}
+                  solid={isFavorite} 
                 />
               </TouchableOpacity>
             </View>
@@ -95,6 +100,8 @@ export default function PokemonCard(props) {
           </View>
         </View>
       </Modal>
+
+      <Toast />
     </>
   );
 }
@@ -142,10 +149,8 @@ const styles = StyleSheet.create({
   },
   types: {
     textAlign: "center",
-    color: "#fff",
-    backgroundColor: "#8E7AB5",
+    color: "#000",
     padding: 5,
-    borderRadius: 5,
     minWidth: 60,
     maxWidth: "auto",
   },
@@ -160,6 +165,10 @@ const styles = StyleSheet.create({
   containerTypeItems: {
     display: "flex",
     gap: 5,
+    backgroundColor: '#eee',
+    borderRadius: 6,
+    borderColor: '#000',
+    borderWidth: 2,
   },
   centeredView: {
     flex: 1,

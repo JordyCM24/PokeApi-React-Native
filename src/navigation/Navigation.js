@@ -29,7 +29,7 @@ export default function Navigation() {
           }
         } 
       />
-      <Tab.Screen name="Pokedex" component={PokedexScreen} 
+      <Tab.Screen name="Pokédex" component={PokedexScreen} 
         options={
           {
             tabBarLabel:"Pokédex",
