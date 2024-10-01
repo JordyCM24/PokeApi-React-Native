@@ -49,6 +49,12 @@ export default function PokemonCard(props) {
     console.log(pokemon);
     setModalVisible(true);
   };
+
+  // Conversión de altura de decímetros a metros
+  const heightInMeters = (pokemon.height / 10).toFixed(1); // Redondeado a un decimal
+  // Conversión de peso de hectogramos a kilogramos
+  const weightInKilograms = (pokemon.weight / 10).toFixed(1); // Redondeado a un decimal
+
   return (
     <>
       <TouchableWithoutFeedback onPress={goToPokemon}>
@@ -103,11 +109,32 @@ export default function PokemonCard(props) {
           <View style={styles.modalView}>
             <Image style={styles.modalImage} source={{ uri: pokemon.image }} />
             <Text style={styles.modalTitle}>{capitalize(pokemon.name)}</Text>
-            <Text style={styles.modalText}>Número #{pokemon.order}</Text>
-            <Text style={styles.modalText}>Altura: {pokemon.height}</Text>
-            <Text style={styles.modalText}>Ancho: {pokemon.weight}</Text>
-            <Text style={styles.modalText}>Habilidades: {pokemon.abilities.join(", ")}</Text>
-            <Text style={styles.modalText}>Tipo: {pokemon.type}</Text>
+            
+            <View>
+              <View style={styles.infoSection}>
+                <Text style={styles.sectionTitle}>Basic information</Text>
+                {/* <Text style={styles.modalText}>Número: #{pokemon.order}</Text> */}
+                <Text style={styles.modalText}>Height: {heightInMeters} m</Text>
+                <Text style={styles.modalText}>Weight: {weightInKilograms} kg</Text>
+              </View>
+
+              <View style={styles.infoSection}>
+                <Text style={styles.sectionTitle}>Type</Text>
+                <View style={styles.typesContainer}>
+                  {pokemon.types.map((type, index) => (
+                    <Text key={index} style={[styles.typeText, { backgroundColor: getColorByPokemonType(type) }]}>{type}</Text>
+                  ))}
+                </View>
+              </View>
+
+              <View style={styles.infoSection}>
+                <Text style={styles.sectionTitle}>Skills</Text>
+                {pokemon.abilities.map((ability, index) => (
+                  <Text key={index} style={styles.abilityText}>• {ability}</Text>
+                ))}
+              </View>
+            </View>
+
             <TouchableOpacity
               style={styles.closeButton}
               onPress={() => setModalVisible(false)}
@@ -211,8 +238,8 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   modalImage: {
-    width: 200,
-    height: 200,
+    width: 210,
+    height: 190,
     marginBottom: 15,
   },
   modalTitle: {
@@ -228,7 +255,6 @@ const styles = StyleSheet.create({
   closeButton: {
     backgroundColor: "red",
     borderRadius: 20,
-    marginTop: 20,
     paddingHorizontal: 30,
     paddingVertical: 10,
     elevation: 2,
@@ -237,5 +263,40 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+  },
+  infoSection: {
+    width: '100%',
+    marginBottom: 20,
+    //marginLeft: -60
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'left',
+    width: '100%',
+  },
+  typesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+  typeText: {
+    paddingHorizontal: 16,
+    paddingVertical: 5,
+    borderRadius: 10,
+    marginRight: 5,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  abilityText: {
+    fontSize: 16,
+    marginBottom: 5,
+    textAlign: 'left',
+  },
+  modalText: {
+    marginBottom: 5,
+    fontSize: 16,
+    textAlign: 'left',
   },
 });
