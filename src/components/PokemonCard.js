@@ -27,9 +27,6 @@ export default function PokemonCard(props) {
   const pokemonColor = getColorByPokemonType(mainType);
   const container = { backgroundColor: pokemonColor, ...styles.container };;
 
-  const typePokemonColor = getColorTypePokemon(mainType);
-  const typeContent = { backgroundColor: typePokemonColor, ...styles.containerTypeItems };;
-
   const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
   const [isFavorite, setIsFavorite] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -81,8 +78,9 @@ export default function PokemonCard(props) {
             </View>
             <View style={styles.containerType}>
               {pokemon.types?.map((type, index) => {
+                const typeColor = getColorTypePokemon(type); // Obtener color por cada tipo
                 return (
-                  <View key={index} style={typeContent}>
+                  <View key={index} style={[styles.containerTypeItems, { backgroundColor: typeColor }]}>
                     <Text style={styles.types}>
                       {type}
                     </Text>
