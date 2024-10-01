@@ -27,7 +27,7 @@ export default function PokedexScreen() {
         pokemonsArray.push({
           id: pokemonDetails.id,
           name: pokemonDetails.name,
-          type: pokemonDetails.types[0].type.name,
+          types: pokemonDetails.types.map(typeInfo => typeInfo.type.name),
           order: pokemonDetails.order,
           image: pokemonDetails.sprites.other["official-artwork"].front_default,
           abilities: pokemonDetails.abilities.map(abilityInfo => abilityInfo.ability.name),
@@ -43,16 +43,6 @@ export default function PokedexScreen() {
       console.error(error);
     }
   };
-
-  const detailsPokemon = async (pokemonDetails) => {
-    try {
-        //para cargar los detalles de un pokemon
-        const response = await getPokemonDetailsByUrlApi(pokemonDetails);
-        console.log('detalles=>', response);
-    } catch (error) {
-        console.error(error);
-    }
-  }
 
   return (
     <SafeAreaView style={{ paddingTop: -20 }}>

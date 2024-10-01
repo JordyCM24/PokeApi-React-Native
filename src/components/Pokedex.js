@@ -15,7 +15,7 @@ export default function Pokedex(props) {
     setSearch(term.toLowerCase());
   }
   const filteredPokemons = pokemons.filter(pokemon => {
-    return pokemon.name.includes(search) || pokemon.order.toString() === search;
+    return pokemon.name.includes(search) || pokemon.id.toString() === search;
   });
   //console.log('pokemonFiltrado=>', filteredPokemons);
 

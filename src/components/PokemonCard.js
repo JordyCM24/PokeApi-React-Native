@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import getColorByPokemonType from "../utils/getColorByPokemonType";
+import getColorTypePokemon from "../utils/getColorTypePokemon";
 import { capitalize } from "lodash";
 import { FavoritesContext } from "../../FavoritesContext";
 import Toast from 'react-native-toast-message';
@@ -19,9 +20,15 @@ export default function PokemonCard(props) {
   //object pokemon
   const { pokemon } = props;
 
-  //Varables de colores segun su tipo
-  const pokemonColor = getColorByPokemonType(pokemon.type);
-  const container = { backgroundColor: pokemonColor, ...styles.container };
+  // Verifica si hay tipos y toma el primero
+  const mainType = pokemon.types?.[0] || 'Unknown'; // Usa el primer tipo o 'Unknown' si no hay tipos
+
+  // Variables de colores según su tipo
+  const pokemonColor = getColorByPokemonType(mainType);
+  const container = { backgroundColor: pokemonColor, ...styles.container };;
+
+  const typePokemonColor = getColorTypePokemon(mainType);
+  const typeContent = { backgroundColor: typePokemonColor, ...styles.containerTypeItems };;
 
   const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -49,31 +56,42 @@ export default function PokemonCard(props) {
     <>
       <TouchableWithoutFeedback onPress={goToPokemon}>
         <View style={container}>
+
           <View style={styles.containerImg}>
             <Image style={styles.img} source={{ uri: pokemon.image }} />
           </View>
+
           <View style={styles.containerName}>
             <Text style={styles.tittle}>{capitalize(pokemon.name)}</Text>
             <Text style={styles.number}>
-              #{`${pokemon.order}`.padStart(3, 0)}
+              #{`${pokemon.id}`.padStart(3, 0)}
             </Text>
           </View>
-          <View style={styles.containerTypes}>
+
+          <View>
             <View style={styles.containerIcons}>
-              {/* <Icon name="eye" size={22} color={"black"} /> */}
               <TouchableOpacity onPress={() => handleFavoriteToggle(pokemon)}>
                 <Icon
                   name="heart"
-                  size={22}
+                  size={24}
                   color={isFavorite ? "red" : "black"}
                   solid={isFavorite} 
                 />
               </TouchableOpacity>
             </View>
-            <View style={styles.containerTypeItems}>
-              <Text style={styles.types}>{pokemon.type}</Text>
+            <View style={styles.containerType}>
+              {pokemon.types?.map((type, index) => {
+                return (
+                  <View key={index} style={typeContent}>
+                    <Text style={styles.types}>
+                      {type}
+                    </Text>
+                  </View>
+                );
+              })}
             </View>
           </View>
+          
         </View>
       </TouchableWithoutFeedback>
 
@@ -142,18 +160,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#E3E1D9",
   },
-  containerTypes: {
-    flex: 1, // Toma 3/3 del espacio disponible
-    flexDirection: "column", // Alinea los hijos verticalmente
-    justifyContent: "center",
-    alignItems: "flex-end",
+  containerType: {
+    display: 'flex',
+    flexDirection: 'row', // Alinear los elementos horizontalmente
+    justifyContent: 'flex-end', // Alinear al inicio
+    alignItems: 'center', // Alinear verticalmente en el centro
+    gap: 1,
+    marginTop: 10, 
+  },
+  containerTypeItems: {
+    borderRadius: 6,
+    borderColor: '#000',
+    borderWidth: 2,
+    marginRight: 2, // Simulamos el gap entre elementos
   },
   types: {
     textAlign: "center",
-    color: "#000",
+    color: "#fff",
+    fontWeight: "bold",
     padding: 5,
     minWidth: 60,
-    maxWidth: "auto",
   },
   containerIcons: {
     display: "flex",
@@ -162,14 +188,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingBottom: 10,
     gap: 12,
-  },
-  containerTypeItems: {
-    display: "flex",
-    gap: 5,
-    backgroundColor: '#eee',
-    borderRadius: 6,
-    borderColor: '#000',
-    borderWidth: 2,
   },
   centeredView: {
     flex: 1,
