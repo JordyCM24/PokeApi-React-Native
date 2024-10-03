@@ -17,7 +17,6 @@ export default function Pokedex(props) {
   const filteredPokemons = pokemons.filter(pokemon => {
     return pokemon.name.includes(search) || pokemon.id.toString() === search;
   });
-  //console.log('pokemonFiltrado=>', filteredPokemons);
 
   return(
      <View>
@@ -39,10 +38,13 @@ export default function Pokedex(props) {
           onEndReached={isNext && loadMore}
           onEndReachedThreshold={0.1}
           ListFooterComponent={
-            <ActivityIndicator 
-              style={styles.spinnerContainer}
-
-            />
+            isNext && (
+              <ActivityIndicator 
+                style={styles.spinnerContainer}
+                size="large"
+                color="#0000ff"
+              />
+            )
           }
         />
      </View>
@@ -55,6 +57,7 @@ const styles = StyleSheet.create({
   },
   spinnerContainer: {
     paddingVertical: 20,
+    marginBottom: 60, // Ajusta este valor según sea necesario
     borderTopWidth: 1,
     borderColor: '#282828'
   },

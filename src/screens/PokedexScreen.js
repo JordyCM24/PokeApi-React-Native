@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function PokedexScreen() {
   const [pokemons, setPokemons] = useState([]);
   const [nextUrl, setNextUrl] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   /* console.log('pokemons=> ', pokemons); */
   useEffect(() => {
@@ -16,7 +17,12 @@ export default function PokedexScreen() {
   }, []);
 
   const loadPokemons = async () => {
+    
+    if (isLoading) return; // Evita múltiples cargas simultáneas
+
     try {
+      
+      setIsLoading(true);
       //para cargar los pokemones
       const response = await getPokemonsApi(nextUrl);
       console.log(response);
@@ -41,6 +47,8 @@ export default function PokedexScreen() {
       /* console.log(response); */
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
