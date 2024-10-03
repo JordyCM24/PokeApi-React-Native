@@ -71,7 +71,7 @@ export default function PokemonCard(props) {
             </Text>
           </View>
 
-          <View>
+          <View style={styles.containerTyp}>
             <View style={styles.containerIcons}>
               <TouchableOpacity onPress={() => handleFavoriteToggle(pokemon)}>
                 <Icon
@@ -158,13 +158,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginVertical: 10,
     height: 100,
-  },
-  bgStyles: {
-    backgroundColor: "green",
+    width: '100%',
   },
   containerImg: {
     flex: 1, // Toma 1/3 del espacio disponible
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "center",
   },
   img: {
@@ -173,7 +171,7 @@ const styles = StyleSheet.create({
   },
   containerName: {
     flex: 1, // Toma 2/3 del espacio disponible
-    alignItems: "left",
+    alignItems: "flex-start",
     justifyContent: "center",
   },
   tittle: {
@@ -184,6 +182,9 @@ const styles = StyleSheet.create({
   number: {
     fontSize: 16,
     color: "#E3E1D9",
+  },
+  containerTyp: {
+    flex: 1,
   },
   containerType: {
     display: 'flex',
