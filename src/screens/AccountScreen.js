@@ -23,7 +23,7 @@ export default function AccountScreen() {
   };
 
   const checkDate = (currentDate) => {
-    const correctDate = new Date('2005-10-07T00:00:00.000Z');
+    const correctDate = new Date('2005-11-07T00:00:00.000Z');
     
     const isCorrectDate = 
       currentDate.getFullYear() === correctDate.getUTCFullYear() &&
