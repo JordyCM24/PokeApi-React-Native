@@ -2,10 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getPokemonDetailsByUrlApi, getPokemonsApi } from "../api/pokemon";
 import Pokedex from "../components/Pokedex";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const POKEMON_CACHE_KEY = '@PokemonCache';
-const NEXT_URL_CACHE_KEY = '@NextUrlCache';
+import { cacheService } from "../utils/cacheService";
 
 export default function PokedexScreen() {
 
@@ -13,7 +10,6 @@ export default function PokedexScreen() {
   const [nextUrl, setNextUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  /* console.log('pokemons=> ', pokemons); */
   useEffect(() => {
     loadInitialPokemons();
   }, []);
@@ -25,17 +21,11 @@ export default function PokedexScreen() {
     //await AsyncStorage.removeItem(NEXT_URL_CACHE_KEY);
     
     try {
-      const cachedPokemons = await AsyncStorage.getItem(POKEMON_CACHE_KEY);
-      const cachedNextUrl = await AsyncStorage.getItem(NEXT_URL_CACHE_KEY);
+      const cachedPokemons = await cacheService.getCachedPokemons();
 
-      if (cachedPokemons && cachedNextUrl) {
-        const parsedPokemons = JSON.parse(cachedPokemons);
-        const correctedPokemons = parsedPokemons.map(pokemon => ({
-          ...pokemon,
-          image: pokemon.image || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`
-        }));
-        setPokemons(correctedPokemons);
-        setNextUrl(cachedNextUrl);
+      if (cachedPokemons) {
+        setPokemons(cachedPokemons);
+        setNextUrl(`https://pokeapi.co/api/v2/pokemon/?offset=${cachedPokemons.length}&limit=30`);
       } else {
         await loadPokemons();
       }
@@ -54,13 +44,12 @@ export default function PokedexScreen() {
 
       //para cargar los pokemones
       const response = await getPokemonsApi(nextUrl);
-      console.log(response);
+      //console.log(response);
       setNextUrl(response.next);
 
-      const pokemonsArray = [];
-      for await (const pokemon of response.results) {
+      const newPokemons = await Promise.all(response.results.map(async (pokemon) => {
         const pokemonDetails = await getPokemonDetailsByUrlApi(pokemon.url);
-        pokemonsArray.push({
+        return {
           id: pokemonDetails.id,
           name: pokemonDetails.name,
           types: pokemonDetails.types.map(typeInfo => typeInfo.type.name),
@@ -71,14 +60,14 @@ export default function PokedexScreen() {
           weight: pokemonDetails.weight,
           //moves: pokemonDetails.moves,
           //mapear al igual que abilities
-        });
-      }
-      const newPokemons = [...pokemons, ...pokemonsArray];
-      setPokemons(newPokemons);
+        };
+      }));
 
-      // Guardar en caché
-      await AsyncStorage.setItem(POKEMON_CACHE_KEY, JSON.stringify(newPokemons));
-      await AsyncStorage.setItem(NEXT_URL_CACHE_KEY, response.next);
+      const updatedPokemons = [...pokemons, ...newPokemons];
+      setPokemons(updatedPokemons);
+
+      // Actualizar la caché
+      await cacheService.setCachedPokemons(updatedPokemons);
 
     } catch (error) {
       console.error(error);
@@ -87,16 +76,6 @@ export default function PokedexScreen() {
     }
   };
 
-  // Función para verificar y corregir las URLs de las imágenes
-  const verifyAndCorrectImageUrls = (pokemonList) => {
-    return pokemonList.map(pokemon => {
-      if (!pokemon.image || !pokemon.image.startsWith('http')) {
-        // Si la imagen no existe o no es una URL válida, asigna una URL por defecto
-        pokemon.image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`;
-      }
-      return pokemon;
-    });
-  };
 
   return (
     <SafeAreaView style={{ paddingTop: -20 }}>

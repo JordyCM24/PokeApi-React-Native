@@ -22,7 +22,7 @@ export default function Navigation() {
       <Tab.Screen name="Favoritos" component={FavoriteScreen} 
         options={
           {
-            tabBarLabel: 'Favoritos',
+            tabBarLabel: 'Favorites',
             tabBarIcon: ({color, size})=> (
               <Icon name='heart' color={color} size={size} />
             ),
@@ -42,7 +42,7 @@ export default function Navigation() {
       <Tab.Screen name="Cuenta" component={AccountScreen} 
         options={
           {
-            tabBarLabel:"Mi cuenta",
+            tabBarLabel:"Account",
             tabBarIcon: ({color, size})=> (
               <Icon name='user' color={color} size={size} />
             ),
