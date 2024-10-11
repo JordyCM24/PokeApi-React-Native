@@ -1,15 +1,18 @@
 {
   "expo": {
-    "name": "pokeapi",
-    "slug": "pokeapi",
-    "version": "1.0.0",
+    "name": "Pokédex",
+    "slug": "pokedex",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.jpeg",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,12 +22,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/pokeball.png",
+        "backgroundColor": "#000000"
+      },
+      "package": "com.jordydev24.pokedex"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/pokeball.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "81e73d65-66f1-4f5b-a48c-9494fbc277c6"
+      }
+    },
+    "owner": "jordydev24"
   }
 }
