@@ -7,6 +7,9 @@ import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { FavoritesProvider } from './FavoritesContext';
 import Toast from 'react-native-toast-message';
 import CustomSplashScreen from './src/screens/CustomSplashScreen';
+import UpdateChecker from './src/utils/UpdateChecker';
+import * as Updates from 'expo-updates';
+
 
 const darkTheme = {
   ...DarkTheme,
@@ -20,10 +23,21 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simula un tiempo de carga
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000); // Ajusta este tiempo según tus necesidades
+    async function checkUpdates() {
+      try {
+        const update = await Updates.checkForUpdateAsync();
+        if (update.isAvailable) {
+          await Updates.fetchUpdateAsync();
+          await Updates.reloadAsync();
+        }
+      } catch (error) {
+        console.error('Error checking for updates:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    checkUpdates();
   }, []);
 
   if (isLoading) {
@@ -31,14 +45,15 @@ export default function App() {
   }
   
   return (
-    <FavoritesProvider>
-      <SafeAreaProvider>
-        <StatusBar style="light" />
-        <NavigationContainer theme={darkTheme}>
+    <SafeAreaProvider>
+      <NavigationContainer theme={darkTheme}>
+        <FavoritesProvider>
+          <UpdateChecker />
           <Navigation />
-        </NavigationContainer>
-        <Toast />
-      </SafeAreaProvider>
-    </FavoritesProvider>
+          <StatusBar style="light" />
+          <Toast />
+        </FavoritesProvider>
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }

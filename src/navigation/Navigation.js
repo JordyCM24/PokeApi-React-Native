@@ -19,7 +19,7 @@ export default function Navigation() {
         headerTintColor: '#fff',
       }}
     >
-      <Tab.Screen name="Favoritos" component={FavoriteScreen} 
+      <Tab.Screen name="Favorites" component={FavoriteScreen} 
         options={
           {
             tabBarLabel: 'Favorites',
@@ -39,7 +39,7 @@ export default function Navigation() {
           }
         } 
       />
-      <Tab.Screen name="Cuenta" component={AccountScreen} 
+      <Tab.Screen name="Account" component={AccountScreen} 
         options={
           {
             tabBarLabel:"Account",

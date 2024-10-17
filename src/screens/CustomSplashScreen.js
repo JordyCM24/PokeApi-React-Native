@@ -10,7 +10,7 @@ const CustomSplashScreen = () => {
     Animated.loop(
       Animated.timing(translateX, {
         toValue: 1,
-        duration: 1000,
+        duration: 900,
         easing: Easing.linear,
         useNativeDriver: true,
       })
