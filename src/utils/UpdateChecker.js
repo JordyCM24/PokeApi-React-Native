@@ -7,40 +7,57 @@ const UpdateChecker = () => {
 
   const checkForUpdates = async () => {
     try {
-      if (__DEV__) {
-        console.log('App running in development mode - updates disabled');
-        return;
-      }
-
-      console.log('Iniciando búsqueda de actualizaciones...');
+      console.log('Iniciando verificación de actualizaciones...');
       const update = await Updates.checkForUpdateAsync();
-      console.log('Resultado de búsqueda de actualizaciones:', update);
-      
+      console.log('Resultado de la verificación:', update);
+
       if (update.isAvailable) {
-        console.log('¡Actualización encontrada! Descargando...');
-        await Updates.fetchUpdateAsync();
-        
-        // Eliminamos la verificación de result.isNew
+        console.log('¡Actualización encontrada!');
         Alert.alert(
           "Actualización disponible",
-          "Una nueva versión está lista. ¿Deseas reiniciar para aplicar la actualización?",
+          "Una nueva versión está disponible. ¿Deseas descargarla e instalarla ahora?",
           [
-            { 
-              text: "Más tarde", 
+            {
+              text: "Más tarde",
               style: "cancel",
               onPress: () => console.log('Actualización pospuesta por el usuario')
             },
-            { 
-              text: "Reiniciar", 
+            {
+              text: "Descargar e instalar",
               onPress: async () => {
-                console.log('Reiniciando para aplicar actualización...');
+                console.log('Descargando actualización...');
                 try {
-                  await Updates.reloadAsync();
+                  await Updates.fetchUpdateAsync();
+                  Alert.alert(
+                    "Actualización descargada",
+                    "La actualización se ha descargado. ¿Deseas reiniciar para aplicarla?",
+                    [
+                      {
+                        text: "Más tarde",
+                        style: "cancel"
+                      },
+                      {
+                        text: "Reiniciar",
+                        onPress: async () => {
+                          console.log('Reiniciando para aplicar actualización...');
+                          try {
+                            await Updates.reloadAsync();
+                          } catch (error) {
+                            console.error('Error al reiniciar la app:', error);
+                            Alert.alert(
+                              "Error",
+                              "No se pudo aplicar la actualización. Por favor, reinicie la aplicación manualmente."
+                            );
+                          }
+                        }
+                      }
+                    ]
+                  );
                 } catch (error) {
-                  console.error('Error al reiniciar la app:', error);
+                  console.error('Error al descargar la actualización:', error);
                   Alert.alert(
                     "Error",
-                    "No se pudo aplicar la actualización. Por favor, reinicie la aplicación manualmente."
+                    "No se pudo descargar la actualización. Por favor, inténtelo de nuevo más tarde."
                   );
                 }
               }

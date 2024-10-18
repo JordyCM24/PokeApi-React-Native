@@ -8,8 +8,6 @@ import { FavoritesProvider } from './FavoritesContext';
 import Toast from 'react-native-toast-message';
 import CustomSplashScreen from './src/screens/CustomSplashScreen';
 import UpdateChecker from './src/utils/UpdateChecker';
-import * as Updates from 'expo-updates';
-
 
 const darkTheme = {
   ...DarkTheme,
@@ -23,21 +21,13 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    async function checkUpdates() {
-      try {
-        const update = await Updates.checkForUpdateAsync();
-        if (update.isAvailable) {
-          await Updates.fetchUpdateAsync();
-          await Updates.reloadAsync();
-        }
-      } catch (error) {
-        console.error('Error checking for updates:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    }
+    // Simplemente establecemos isLoading a false después de un breve retraso
+    // para simular cualquier inicialización necesaria
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
-    checkUpdates();
+    return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
