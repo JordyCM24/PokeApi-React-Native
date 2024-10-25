@@ -1,16 +1,16 @@
-<h1>PokeAPi con React Native:<h1/> 
+<h1>Pokédex:<h1/> 
+# Inicio
+<p>Buscador incluido en la pokédex, busca por nombre y número.<p/>
+<img src="https://github.com/user-attachments/assets/f5fff43c-195c-4a9d-9c85-18c40a90036e" alt="pokedex" height="400px" width="auto">
 
+# Pantalla Favoritos
+<img src="https://github.com/user-attachments/assets/a43f239d-3670-498f-8785-130e4cf128bb" alt="favorites" height="400px" width="auto">
+
+# Pantalla de Carga
+<img src="https://github.com/user-attachments/assets/dea1f796-0245-4178-9fb4-d4ab899e46a5" alt="splash" height="400px" width="auto">
+
+# Antes, Version inicial.
 <img src="https://github.com/JordyCM24/PokeApi-React-Native/assets/113217256/22794f4d-1b46-4f3c-9247-9929320c1e70" alt="pokedex" height="400px" width="auto">
 
-<br/><br/>
-<h4>Buscador incluido en la pokedex, busca por nombre y numero (algunos numeros no los enceuntra).<h4/>
 
-<img src="https://github.com/JordyCM24/PokeApi-React-Native/assets/113217256/ffc05435-42f5-4760-9e0a-a11ecc5242ef" alt="busquedaPokedex" height="400px" width="auto">
-
-<br/><br/>
-<h4>Cuentas, actualmente esta en construcción para manejar cuentas a futuro.<h4/> 
-
-<img src="https://github.com/JordyCM24/PokeApi-React-Native/assets/113217256/37897bde-6d77-4c31-8efd-e6768de79b09" alt="CuentaPokedex" height="400px" width="auto">
-
-<br/><br/>
-Pantalla de Favoritos aun no funcionando, esta en construcción, estoy tratabdo de usar un context para pasarle el pokemon que ha sido marcado
+-- Powered by Jordy Calderon
