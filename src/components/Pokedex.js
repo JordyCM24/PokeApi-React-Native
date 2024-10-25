@@ -53,13 +53,16 @@ export default function Pokedex(props) {
 const styles = StyleSheet.create({
   flatListContentContainer: {
     paddingHorizontal: 10,
-    paddingBottom: 20,
+    paddingBottom: 80,
+    color: 'fff',
   },
   spinnerContainer: {
     paddingVertical: 20,
-    marginBottom: 60, // Ajusta este valor según sea necesario
+    marginBottom: 90, // Ajusta este valor según sea necesario
     borderTopWidth: 1,
-    borderColor: '#282828'
+    borderColor: '#fff',
+    color: 'fff',
+    backgroundColor: 'fff',
   },
   inputContainer: {
     flexDirection: 'row',
@@ -70,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1E1E1E',
     paddingHorizontal: 15,
     marginHorizontal: 10,
-    marginBottom: 6,
+    marginBottom: 10,
     marginTop: -20,
     elevation: 2, // Sombra para Android
   },
