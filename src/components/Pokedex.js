@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     marginBottom: 90, // Ajusta este valor según sea necesario
     borderTopWidth: 1,
-    borderColor: '#fff',
+    borderColor: '#282828',
     color: 'fff',
     backgroundColor: 'fff',
   },
